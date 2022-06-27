@@ -1,0 +1,16 @@
+{
+  "format": "csv",
+  "delimiter": ",",
+  "header": true,
+  "location": "./resources/example_data_2019_v1.csv",
+  "transformations": [
+    ["str_to_timestamp", "Action_time", "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"],
+    ["get_session_duration", "Action_time", "session_duration", "User_ID", "Action_time"],
+    ["get_session_number", "session_duration", "session_number", "5", "User_ID", "Action_time"],
+    ["get_session_start_time", "Action_time", "session_start_time", "User_ID,session_number"],
+    ["get_count_total_url", "URL", "count_total_url", "User_ID,session_number"],
+    ["get_count_unique_url", "URL", "count_unique_url", "User_ID,session_number"],
+    ["get_groupby_aggregate", "User_ID,session_number,session_start_time,count_total_url,count_unique_url", "session_duration"],
+    ["rearrangeCols", "User_ID,session_number,session_start_time,session_duration,count_total_url,count_unique_url"]
+  ]
+}
